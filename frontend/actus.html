@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Rim'conseil</title>
+      <link href="styles.css" rel="stylesheet">
+      <link rel="icon" type="image/png" href="assets/favicon.png">
+   </head>
+   <body class="margin:0px;" id="content">
+      <script src="components/header.js"></script>
+      <script>
+         const options = { method: 'GET' };
+         let jsonData = {};
+         fetch('http://localhost:5000/articles', options)
+           .then(response => response.json())
+           .then(response => {
+             jsonData = response;
+           })
+           .catch(err => console.error(err));               
+      </script>
+      <section class="section" style="margin-top:30px;">
+         <h1 class="title_left_blue">Actualités</h1>
+         <div id="container"></div>
+      </section>
+            <script>
+         var container = document.getElementById("container");
+         
+         // Générer le HTML pour chaque objet JSON
+         jsonData.forEach(function(item) {
+         var html = `
+         <div class="div_white" style="padding: 30px; position: relative; margin-bottom: 20px">
+         <p>${item.date}</p>
+         <h1 class="title_left_blue">${item.title}</h1>
+         <p style="margin-bottom: 12px;">${item.text}</p>
+         <img style="border-radius: 12px; width: 20%;" src="./images/${item.image}">
+         </div>
+         `;
+         container.innerHTML += html;
+         });
+      </script>
+         <script src="components/footer.js"></script>
+   </body>
+</html>

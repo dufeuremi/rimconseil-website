@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Rim'conseil</title>
+      <link href="styles.css" rel="stylesheet">
+      <link rel="icon" type="image/png" href="assets/favicon.png">
+   </head>
+   <body >
+      <script src="config.js"></script>
+      <script src="components/header.js"></script>
+      <script></script>
+      <section class="section">
+         <h1 id="myDiv" class="title_left_blue" style="margin-top: 80px;" >Prenez contact</h1>
+         <div  class="div_white" style="padding: 40px;">
+            <p style="margin-bottom: 30px;">
+               ➜ info@rimconseil.fr<br>
+               ➜ (FR) 06 11 70 90 16 <br>
+               ➜<a href="https://www.linkedin.com/in/robin-jean-philippe/"> Linkedin</a> <br>
+               ➜ 7 Rue Gounod, 35000 Rennes<br>
+            </p>
+            <a href="mailto:info@rimconseil.fr" class="btn_white">Contacter par email</a>
+         </div>
+      </section>
+      <script src="components/footer.js"></script>
+      <script>
+         var div = document.getElementById('myDiv').innerHTML = jsonData.contact;
+      </script>
+   </body>
+</html>
