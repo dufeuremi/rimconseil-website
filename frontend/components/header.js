@@ -52,17 +52,17 @@ document.write(`
                   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                </svg>
             </a>
-            <a style="margin-top: 15px; color: black; text-decoration: none" href="accueil.html">Accueil</a><br>
+            <a style="margin-top: 15px; color: black; text-decoration: none" href="accueil">Accueil</a><br>
             <div style="height: 9px"></div>
-            <a style="padding-top: 40px; color: black; text-decoration: none" href="valeurs.html">Valeurs</a><br>
+            <a style="padding-top: 40px; color: black; text-decoration: none" href="valeurs">Valeurs</a><br>
             <div style="height: 9px"></div>
-            <a style="margin-top: 15px; color: black; text-decoration: none" href="services.html">Services</a><br>
+            <a style="margin-top: 15px; color: black; text-decoration: none" href="services">Services</a><br>
             <div style="height: 9px"></div>
-            <a style="margin-top: 15px; color: black; text-decoration: none" href="intervenant.html">Intervenant</a><br>
+            <a style="margin-top: 15px; color: black; text-decoration: none" href="intervenant">Intervenant</a><br>
             <div style="height: 9px"></div>
-            <a style="margin-top: 15px; color: black; text-decoration: none" href="actus.html">Actualités</a><br>
+            <a style="margin-top: 15px; color: black; text-decoration: none" href="actus">Actualités</a><br>
             <div style="height: 9px"></div>
-            <a style="margin-top: 15px; color: black; text-decoration: none" href="coordonnees.html">Coordonnées</a><br>
+            <a style="margin-top: 15px; color: black; text-decoration: none" href="coordonnees">Coordonnées</a><br>
          </div>
       </div>
       <a id="menu" class="menu-display" style="padding: 10px; border: 1px solid #141414;  z-index: 100; 
@@ -117,29 +117,29 @@ document.write(`
       </div>
       <div style="  
          z-index: -400; color: white; font-size: 12px; background-color: var(--blue); text-align: center; height:30px; padding-top:10px;  box-shadow: 0 8px 8px rgba(145, 145, 145, 0.2);
-         ">Ce site est éco-conçu • <a href="valeurs.html" style="color: white; font-size: 12px;">En savoir plus ➜</a></div>
+         ">Ce site est éco-conçu • <a href="valeurs" style="color: white; font-size: 12px;">En savoir plus ➜</a></div>
       <section class="section" style="margin-top:10px">
          <nav class="navbar">
             <div class="logo">
-               <a href="accueil.html"><img class="logo-img" src="assets/logo.png" alt="Logo"></a>
+               <a href="accueil"><img class="logo-img" src="assets/logo.png" alt="Logo"></a>
             </div>
             <div class="navbar-buttons" >
                <btn class="btn btn_blue" id="open-popup-btn" onclick="openPopup()">Prendre RDV ➜</btn>
             </div>
             <div class="navbar-buttons">
-               <a href="contact.html" class="nav-link">Contact</a>
+               <a href="contact" class="nav-link">Contact</a>
             </div>
             <div class="navbar-buttons">
-               <a href="actus.html" class="nav-link">Actus</a>
+               <a href="actus" class="nav-link">Actus</a>
             </div>
             <div class="navbar-buttons">
-               <a href="intervenant.html" class="nav-link">Intervenant</a>
+               <a href="intervenant" class="nav-link">Intervenant</a>
             </div>
             <div class="navbar-buttons">
-               <a href="services.html" class="nav-link">Services</a>
+               <a href="services" class="nav-link">Services</a>
             </div>
             <div class="navbar-buttons">
-               <a href="valeurs.html" class="nav-link">Valeurs</a>
+               <a href="valeurs" class="nav-link">Valeurs</a>
             </div>
          </nav>
       </section>
