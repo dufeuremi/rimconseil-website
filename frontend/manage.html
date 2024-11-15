@@ -1,106 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Rim'conseil</title>
-      <link href="styles.css" rel="stylesheet">
-   </head>
-   <body class="margin:0px;" style="margin: 40px;" id="content">
-      <script>
-         const options = { method: 'GET' };
-         let jsonData = {};
-         
-         fetch('http://localhost:5000/articles', options)
-             .then(response => response.json())
-             .then(response => {
-                 jsonData = response;
-                 var container = document.getElementById("container");
-         
-                 // Générer le HTML pour chaque objet JSON
-                 jsonData.forEach(function (item) {
-                     var html = `
-                         <div class="div_white" style="padding: 30px; position: relative; margin-bottom: 20px">
-                             <p>${item.date}</p>
-                             <h1 class="title_left_blue">${item.title}</h1>
-                             <p style="margin-bottom: 12px;">${item.text}</p>
-                             <img style="border-radius: 12px; width: 20%;" src="./images/${item.image}">
-                             <button id="${item.id}" class="btn_blue" style="position: absolute; right: 30px; top: 30px;" onclick="delete_item(this)">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                   <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                 </svg>
-               </button>
-                         </div>
-                     `;
-                     container.innerHTML += html;
-                 });
-             })
-             .catch(err => console.error(err));
-      </script>
-      <h1 class="title_left_blue">Manager des publications</h1>
-      <br>
-      <input class="input_text" style="margin-right: 7px;" placeholder="Clée secrete*" id="secret_key"><br><br>
-      <p>Nouvelle publication</p>
-      <input class="input_text"  style="margin-right: 7px;" placeholder="Titre*" id="title">
-      <input class="input_text" style="margin-right: 7px;" placeholder="Nom de l'image" id="img">
-      <input class="input_text" type="date" id="date"><br>
-      <textarea class="input_text" style="margin-top: 12px;" rows="4" cols="150" placeholder="Corps de texte*" id="text"></textarea>
-      <br><br>
-      <btn class="btn_blue" style="margin-top: 4px; margin-left: -0px;" onclick="add_item()">Publier</btn>
-      <br><br><br><br>
-      <p>Gérer les publications</p>
-      <div id="container"></div>
-      <script>
-         function delete_item(element) {
-             const buttonId = element.id;
-             var secret = document.getElementById("secret_key").value;
-                 const options = {
-                   method: 'DELETE',
-                   headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.6.1'},
-                   body: `{"secret":"${secret}"}`
-                 };
-         
-                 fetch(`http://localhost:5000/articles/${buttonId}?=`, options)
-                   .then(response => response.json())
-                   .then(response => console.log("Supprimé avec succès."))
-                   .catch(err => console.log("Verifiez la clée secrete"));
-                   location.reload();
-             }
-        function add_item(element) {
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Rim'conseil</title>
+   <link href="styles.css" rel="stylesheet">
+</head>
+<body class="margin:0px;" style="margin: 40px;" id="content">
+   <script>
+      const options = { method: 'GET' };
+      let jsonData = {};
+
+      fetch('http://rimconseil.com:5000/articles', options)
+         .then(response => response.json())
+         .then(response => {
+            jsonData = response;
+            var container = document.getElementById("container");
+
+            jsonData.forEach(function (item) {
+               var html = `
+                  <div class="div_white" style="padding: 30px; position: relative; margin-bottom: 20px">
+                     <p>${item.date}</p>
+                     <h1 class="title_left_blue">${item.title}</h1>
+                     <p style="margin-bottom: 12px;">${item.text}</p>
+                     <img style="border-radius: 12px; width: 20%;" src="./images/${item.image}">
+                     <button id="${item.id}" class="btn_blue" style="position: absolute; right: 30px; top: 30px;" onclick="delete_item(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                        </svg>
+                     </button>
+                  </div>
+               `;
+               container.innerHTML += html;
+            });
+         })
+         .catch(err => showAlert(`Erreur chargement articles: ${err}`));
+
+      function showAlert(text) {
+         alert(text);
+      }
+   </script>
+   
+   <h1 class="title_left_blue">Manager des publications</h1>
+   <br>
+   <input class="input_text" style="margin-right: 7px;" placeholder="Clée secrete*" id="secret_key"><br><br>
+   <p>Nouvelle publication</p>
+   <input class="input_text" style="margin-right: 7px;" placeholder="Titre*" id="title">
+   <input class="input_text" style="margin-right: 7px;" placeholder="Nom de l'image" id="img">
+   <input class="input_text" type="date" id="date"><br>
+   <textarea class="input_text" style="margin-top: 12px;" rows="4" cols="150" placeholder="Corps de texte*" id="text"></textarea>
+   <br><br>
+   <btn class="btn_blue" style="margin-top: 4px; margin-left: -0px;" onclick="add_item()">Publier</btn>
+   <br><br><br><br>
+   <p>Gérer les publications</p>
+   <div id="container"></div>
+
+   <script>
+      function delete_item(element) {
+         const buttonId = element.id;
+         var secret = document.getElementById("secret_key").value;
+         const options = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ secret: secret })
+         };
+
+         fetch(`http://rimconseil.com:5000/articles/${buttonId}`, options)
+            .then(response => {
+               if (!response.ok) {
+                  throw new Error(`Erreur suppression article : ${response.status}`);
+               }
+               return response.json();
+            })
+            .then(response => {
+               console.log("Deleted response:", response);
+               showAlert("Successfully deleted");
+            })
+            .catch(err => showAlert(`Pensez à entrer la clée secrete / Erreur suppression : ${err}`));
+      }
+
+      function add_item() {
          var secret = document.getElementById("secret_key").value;
          var title = document.getElementById("title").value;
          var text = document.getElementById("text").value;
          var date = document.getElementById("date").value;
          var img = document.getElementById("img").value;
-         
-         // Créer un objet contenant les variables
-         const data = {
-             secret: secret,
-             title: title,
-             text: text,
-             date: date,
-             image: img
-         };
-         
-         // Définir les options de la requête
+
+         const data = { secret: secret, title: title, text: text, date: date, image: img };
+
          const options = {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-                 'User-Agent': 'insomnia/8.6.1'
-             },
-             // Convertir l'objet en chaîne JSON et l'envoyer dans le corps de la requête
-             body: JSON.stringify(data)
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
          };
-         
-         // Envoyer la requête
-         fetch('http://localhost:5000/articles', options)
-             .then(response => response.json())
-             .then(response => console.log(response))
-             .catch(err => console.error(err));
-             location.reload();
-         } 
-      </script>
-   </body>
+
+         fetch('http://rimconseil.com:5000/articles', options)
+            .then(response => {
+               if (!response.ok) {
+                  throw new Error(`Erreur ajout article : ${response.status}`);
+               }
+               return response.json();
+            })
+            .then(response => {
+               console.log("Added response:", response);
+               showAlert("Successfully added");
+            })
+            .catch(err => showAlert(`Erreur ajout : ${err}`));
+      }
+   </script>
+</body>
 </html>

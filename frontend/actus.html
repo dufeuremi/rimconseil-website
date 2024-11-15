@@ -11,14 +11,26 @@
       <script src="components/header.js"></script>
       <script>
          const options = { method: 'GET' };
-         let jsonData = {};
-         fetch('http://localhost:5000/articles', options)
+         
+         // Fetch JSON data and render it
+         fetch('http://rimconseil.com:5000/articles', options)
            .then(response => response.json())
            .then(response => {
-             jsonData = response;
+             const container = document.getElementById("container");
+             response.forEach(item => {
+               const html = `
+               <div class="div_white" style="padding: 30px; position: relative; margin-bottom: 20px">
+                 <p>${item.date}</p>
+                 <h1 class="title_left_blue">${item.title}</h1>
+                 <p style="margin-bottom: 12px;">${item.text}</p>
+                 <img style="border-radius: 12px; width: 20%;" src="./images/${item.image}">
+               </div>`;
+               container.innerHTML += html;
+             });
            })
-           .catch(err => console.error(err));               
+           .catch(err => console.error(err));
       </script>
+      
       <section class="section" style="margin-top:30px;">
          <h1 class="title_left_blue">Actualités</h1>
          <div id="container"></div>
