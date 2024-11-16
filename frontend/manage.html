@@ -6,7 +6,7 @@
    <title>Rim'conseil</title>
    <link href="styles.css" rel="stylesheet">
 </head>
-<body class="margin:0px;" style="margin: 40px;" id="content">
+<body style="margin: 40px;" id="content">
    <script>
       const options = { method: 'GET' };
       let jsonData = {};
@@ -15,15 +15,15 @@
          .then(response => response.json())
          .then(response => {
             jsonData = response;
-            var container = document.getElementById("container");
+            const container = document.getElementById("container");
 
             jsonData.forEach(function (item) {
-               var html = `
+               const html = `
                   <div class="div_white" style="padding: 30px; position: relative; margin-bottom: 20px">
                      <p>${item.date}</p>
                      <h1 class="title_left_blue">${item.title}</h1>
                      <p style="margin-bottom: 12px;">${item.text}</p>
-                     <img style="border-radius: 12px; width: 20%;" src="./images/${item.image}">
+                     <img style="border-radius: 12px; width: 20%;" src="${item.image}">
                      <button id="${item.id}" class="btn_blue" style="position: absolute; right: 30px; top: 30px;" onclick="delete_item(this)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -59,7 +59,7 @@
    <script>
       function delete_item(element) {
          const buttonId = element.id;
-         var secret = document.getElementById("secret_key").value;
+         const secret = document.getElementById("secret_key").value;
          const options = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
@@ -81,11 +81,11 @@
       }
 
       function add_item() {
-         var secret = document.getElementById("secret_key").value;
-         var title = document.getElementById("title").value;
-         var text = document.getElementById("text").value;
-         var date = document.getElementById("date").value;
-         var img = document.getElementById("img").value;
+         const secret = document.getElementById("secret_key").value;
+         const title = document.getElementById("title").value;
+         const text = document.getElementById("text").value;
+         const date = document.getElementById("date").value;
+         const img = document.getElementById("img").value;
 
          const data = { secret: secret, title: title, text: text, date: date, image: img };
 
