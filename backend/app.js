@@ -4,7 +4,11 @@ const db = require('./db');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://rimconseil.com',
+    optionsSuccessStatus: 200 
+}));
+
 app.use(express.json());
 const sqlite3 = require('sqlite3').verbose();
 
