@@ -1,19 +1,20 @@
-// app.js
 const express = require('express');
 const db = require('./db');
 const cors = require('cors');
 
 const app = express();
-app.use(cors({
-    origin: 'https://rimconseil.com',
-    optionsSuccessStatus: 200 
-}));
-
-app.use(express.json());
 const sqlite3 = require('sqlite3').verbose();
 
 // Secret key for API authentication
 const secretKey = "KClN2rhS6C7THXL";
+
+// CORS configuration to allow both production and development URLs
+app.use(cors({
+    origin: ['https://rimconseil.com', 'http://localhost:5000'],
+    optionsSuccessStatus: 200 
+}));
+
+app.use(express.json());
 
 // Middleware to check secret key
 const checkSecretKey = (req, res, next) => {
@@ -63,8 +64,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-app.use(cors({
-    origin: 'http://localhost:5000',
-    optionsSuccessStatus: 200 
-}));

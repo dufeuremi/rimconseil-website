@@ -11,8 +11,19 @@
       const options = { method: 'GET' };
       let jsonData = {};
 
+      // Fonction pour afficher les logs
+      function addLog(message) {
+         const logContainer = document.getElementById("logContainer");
+         const logMessage = document.createElement("p");
+         logMessage.textContent = message;
+         logContainer.appendChild(logMessage);
+      }
+
       fetch('https://rimconseil.com/api/articles', options)
-         .then(response => response.json())
+         .then(response => {
+            addLog(`GET /api/articles - Status: ${response.status}`);
+            return response.json();
+         })
          .then(response => {
             jsonData = response;
             const container = document.getElementById("container");
@@ -35,28 +46,8 @@
                container.innerHTML += html;
             });
          })
-         .catch(err => showAlert(`Erreur chargement articles: ${err}`));
+         .catch(err => addLog(`Erreur chargement articles: ${err}`));
 
-      function showAlert(text) {
-         alert(text);
-      }
-   </script>
-   
-   <h1 class="title_left_blue">Manager des publications</h1>
-   <br>
-   <input class="input_text" style="margin-right: 7px;" placeholder="Clée secrete*" id="secret_key"><br><br>
-   <p>Nouvelle publication</p>
-   <input class="input_text" style="margin-right: 7px;" placeholder="Titre*" id="title">
-   <input class="input_text" style="margin-right: 7px;" placeholder="Nom de l'image" id="img">
-   <input class="input_text" type="date" id="date"><br>
-   <textarea class="input_text" style="margin-top: 12px;" rows="4" cols="150" placeholder="Corps de texte*" id="text"></textarea>
-   <br><br>
-   <btn class="btn_blue" style="margin-top: 4px; margin-left: -0px;" onclick="add_item()">Publier</btn>
-   <br><br><br><br>
-   <p>Gérer les publications</p>
-   <div id="container"></div>
-
-   <script>
       function delete_item(element) {
          const buttonId = element.id;
          const secret = document.getElementById("secret_key").value;
@@ -68,16 +59,17 @@
 
          fetch(`https://rimconseil.com/api/articles/${buttonId}`, options)
             .then(response => {
+               addLog(`DELETE /api/articles/${buttonId} - Status: ${response.status}`);
                if (!response.ok) {
                   throw new Error(`Erreur suppression article : ${response.status}`);
                }
                return response.json();
             })
             .then(response => {
-               console.log("Deleted response:", response);
+               addLog(`Deleted response: ${JSON.stringify(response)}`);
                showAlert("Successfully deleted");
             })
-            .catch(err => showAlert(`Pensez à entrer la clée secrete / Erreur suppression : ${err}`));
+            .catch(err => addLog(`Pensez à entrer la clé secrète / Erreur suppression : ${err}`));
       }
 
       function add_item() {
@@ -97,17 +89,35 @@
 
          fetch('https://rimconseil.com/api/articles', options)
             .then(response => {
+               addLog(`POST /api/articles - Status: ${response.status}`);
                if (!response.ok) {
                   throw new Error(`Erreur ajout article : ${response.status}`);
                }
                return response.json();
             })
             .then(response => {
-               console.log("Added response:", response);
+               addLog(`Added response: ${JSON.stringify(response)}`);
                showAlert("Successfully added");
             })
-            .catch(err => showAlert(`Erreur ajout : ${err}`));
+            .catch(err => addLog(`Erreur ajout : ${err}`));
       }
    </script>
+
+   <h1 class="title_left_blue">Manager des publications</h1>
+   <br>
+   <input class="input_text" style="margin-right: 7px;" placeholder="Clé secrète*" id="secret_key"><br><br>
+   <p>Nouvelle publication</p>
+   <input class="input_text" style="margin-right: 7px;" placeholder="Titre*" id="title">
+   <input class="input_text" style="margin-right: 7px;" placeholder="Nom de l'image" id="img">
+   <input class="input_text" type="date" id="date"><br>
+   <textarea class="input_text" style="margin-top: 12px;" rows="4" cols="150" placeholder="Corps de texte*" id="text"></textarea>
+   <br><br>
+   <button class="btn_blue" style="margin-top: 4px; margin-left: -0px;" onclick="add_item()">Publier</button>
+   <br><br><br><br>
+   <p>Gérer les publications</p>
+   <div id="container"></div>
+
+   <h2>Logs</h2>
+   <div id="logContainer" style="border: 1px solid #ccc; padding: 10px; max-height: 200px; overflow-y: scroll;"></div>
 </body>
 </html>
