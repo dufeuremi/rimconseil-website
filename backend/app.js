@@ -20,6 +20,7 @@ app.use(express.json());
 const checkSecretKey = (req, res, next) => {
     const { secret } = req.body;
     if (secret !== secretKey) {
+        console.log('Unauthorized request: incorrect secret key');
         return res.status(401).json({ error: 'Unauthorized' });
     }
     next();
