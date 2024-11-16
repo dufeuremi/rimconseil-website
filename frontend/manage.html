@@ -11,7 +11,7 @@
       const options = { method: 'GET' };
       let jsonData = {};
 
-      fetch('http://rimconseil.com:5000/articles', options)
+      fetch('https://rimconseil.com/api/articles', options)
          .then(response => response.json())
          .then(response => {
             jsonData = response;
@@ -66,7 +66,7 @@
             body: JSON.stringify({ secret: secret })
          };
 
-         fetch(`http://rimconseil.com:5000/articles/${buttonId}`, options)
+         fetch(`https://rimconseil.com/api/articles/${buttonId}`, options)
             .then(response => {
                if (!response.ok) {
                   throw new Error(`Erreur suppression article : ${response.status}`);
@@ -95,7 +95,7 @@
             body: JSON.stringify(data)
          };
 
-         fetch('http://rimconseil.com:5000/articles', options)
+         fetch('https://rimconseil.com/api/articles', options)
             .then(response => {
                if (!response.ok) {
                   throw new Error(`Erreur ajout article : ${response.status}`);
