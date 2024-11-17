@@ -29,21 +29,35 @@
             const container = document.getElementById("container");
 
             jsonData.forEach(function (item) {
-               const html = `
-                  <div class="div_white" style="padding: 30px; position: relative; margin-bottom: 20px">
-                     <p>${item.date}</p>
-                     <h1 class="title_left_blue">${item.title}</h1>
-                     <p style="margin-bottom: 12px;">${item.text}</p>
-                     <img style="border-radius: 12px; width: 20%;" src="${item.image}">
-                     <button id="${item.id}" class="btn_blue" style="position: absolute; right: 30px; top: 30px;" onclick="delete_item(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                        </svg>
-                     </button>
-                  </div>
+               const div = document.createElement("div");
+               div.classList.add("div_white");
+               div.style.padding = "30px";
+               div.style.position = "relative";
+               div.style.marginBottom = "20px";
+
+               div.innerHTML = `
+                  <p>${item.date}</p>
+                  <h1 class="title_left_blue">${item.title}</h1>
+                  <p style="margin-bottom: 12px;">${item.text}</p>
+                  <img style="border-radius: 12px; width: 20%;" src="${item.image}">
                `;
-               container.innerHTML += html;
+
+               const button = document.createElement("button");
+               button.id = item.id;
+               button.className = "btn_blue";
+               button.style.position = "absolute";
+               button.style.right = "30px";
+               button.style.top = "30px";
+               button.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                  </svg>
+               `;
+               button.onclick = () => delete_item(button);
+
+               div.appendChild(button);
+               container.appendChild(div);
             });
          })
          .catch(err => addLog(`Erreur chargement articles: ${err}`));
@@ -51,6 +65,12 @@
       function delete_item(element) {
          const buttonId = element.id;
          const secret = document.getElementById("secret_key").value;
+
+         if (!secret) {
+            addLog("Erreur : Clé secrète manquante.");
+            return;
+         }
+
          const options = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
@@ -67,7 +87,7 @@
             })
             .then(response => {
                addLog(`Deleted response: ${JSON.stringify(response)}`);
-               showAlert("Successfully deleted");
+               alert("Successfully deleted");
             })
             .catch(err => addLog(`Pensez à entrer la clé secrète / Erreur suppression : ${err}`));
       }
@@ -78,6 +98,11 @@
          const text = document.getElementById("text").value;
          const date = document.getElementById("date").value;
          const img = document.getElementById("img").value;
+
+         if (!secret) {
+            addLog("Erreur : Clé secrète manquante.");
+            return;
+         }
 
          const data = { secret: secret, title: title, text: text, date: date, image: img };
 
@@ -91,13 +116,13 @@
             .then(response => {
                addLog(`POST /api/articles - Status: ${response.status}`);
                if (!response.ok) {
-                  throw new Error(`Erreur ajout article : ${response.status}`);
+                  return response.text().then(text => { throw new Error(text) });
                }
                return response.json();
             })
             .then(response => {
                addLog(`Added response: ${JSON.stringify(response)}`);
-               showAlert("Successfully added");
+               alert("Successfully added");
             })
             .catch(err => addLog(`Erreur ajout : ${err}`));
       }
