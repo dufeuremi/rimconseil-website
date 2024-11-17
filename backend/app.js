@@ -9,10 +9,8 @@ const app = express();
 const secretKey = "KClN2rhS6C7THXL";
 
 // CORS configuration to allow both production and development URLs
-app.use(cors({
-    origin: ['https://rimconseil.com', 'http://localhost:5000'],
-    optionsSuccessStatus: 200
-}));
+app.use(cors());
+
 app.use(express.json());
 
 // Middleware to handle OPTIONS preflight requests for CORS
