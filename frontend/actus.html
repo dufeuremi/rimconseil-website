@@ -5,7 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Rim'conseil</title>
       <link href="styles.css" rel="stylesheet">
-      <link rel="icon" type="image/png" href="https://example.com/path/to/your/favicon.png">
+      <link rel="icon" type="image/png" href="assets/favicon.png">
    </head>
    <body style="margin:0px;" id="content">
       <script src="components/header.js"></script>
@@ -13,7 +13,7 @@
          const options = { method: 'GET' };
          
          // Fetch JSON data and render it
-         fetch('https://rimconseil.com/api/articles', options)
+         fetch('/api/articles', options)
            .then(response => response.json())
            .then(response => {
              const container = document.getElementById("container");
