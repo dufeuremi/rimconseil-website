@@ -19,7 +19,7 @@
          logContainer.appendChild(logMessage);
       }
 
-      fetch('http://localhost:5000/articles', options)
+      fetch('/api/articles', options)
          .then(response => {
             addLog(`GET /api/articles - Status: ${response.status}`);
             return response.json();
@@ -77,7 +77,7 @@
             body: JSON.stringify({ secret: secret })
          };
 
-         fetch(`http://localhost:5000/articles${buttonId}`, options)
+         fetch(`/api/articles${buttonId}`, options)
             .then(response => {
                addLog(`DELETE /api/articles/${buttonId} - Status: ${response.status}`);
                if (!response.ok) {
@@ -112,7 +112,7 @@
             body: JSON.stringify(data)
          };
 
-         fetch('http://localhost:5000/articles', options)
+         fetch('/api/articles', options)
             .then(response => {
                addLog(`POST /api/articles - Status: ${response.status}`);
                if (!response.ok) {
