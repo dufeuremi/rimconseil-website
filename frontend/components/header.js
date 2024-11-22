@@ -22,7 +22,7 @@ document.write(`
        }, 20);
    
        Calendly.initInlineWidget({
-           url: 'https://calendly.com/jean-philippe-robin/30min',
+           url: 'https://calendly.com/rimconseil-info',
            parentElement: document.getElementById('oui'),
            prefill: {},
            utm: {}
